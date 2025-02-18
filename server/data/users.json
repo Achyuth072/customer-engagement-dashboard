@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Alice Smith",
+    "email": "alice@example.com",
+    "lastLoginDate": "2024-01-15T12:00:00Z",
+    "engagementScore": 85,
+    "predictedRetentionCategory": "High"
+  },
+  {
+    "name": "Bob Johnson",
+    "email": "bob@example.com",
+    "lastLoginDate": "2024-01-20T18:30:00Z",
+    "engagementScore": 40,
+    "predictedRetentionCategory": "Medium"
+  },
+  {
+    "name": "Charlie Brown",
+    "email": "charlie@example.com",
+    "lastLoginDate": "2023-12-25T09:00:00Z",
+    "engagementScore": 15,
+    "predictedRetentionCategory": "Low"
+  }
+]
