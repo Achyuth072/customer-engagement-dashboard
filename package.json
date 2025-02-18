@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/app.js",
+    "client": "npm run dev --prefix client"
+  },
   "devDependencies": {
     "concurrently": "^9.1.2"
   }
