@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
+import { Typography, Box, CircularProgress, useTheme } from '@mui/material';
+import { getMetrics } from '../../services/api.jsx';
+
+// Mock data structure for development
+const mockData = [
+  { name: 'Week 1', activeUsers: 400 },
+  { name: 'Week 2', activeUsers: 700 },
+  { name: 'Week 3', activeUsers: 550 },
+  { name: 'Week 4', activeUsers: 800 },
+  { name: 'Week 5', activeUsers: 950 },
+  { name: 'Week 6', activeUsers: 850 }
+];
+
+const ActiveUsersChart = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const theme = useTheme();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setData(mockData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching active users data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box 
+        display="flex" 
+        justifyContent="center" 
+        alignItems="center" 
+        height="100%"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  return (
+    <Box 
+      sx={{ 
+        width: '100%', 
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      <Typography 
+        className="chart-title"
+        variant="h6" 
+      >
+        Active Users Over Time
+      </Typography>
+      
+      <Box className="chart-container">
+        <ResponsiveContainer>
+          <LineChart
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              stroke={theme.palette.divider}
+            />
+            <XAxis 
+              dataKey="name"
+              stroke={theme.palette.text.secondary}
+              tick={{ fill: theme.palette.text.secondary }}
+            />
+            <YAxis
+              stroke={theme.palette.text.secondary}
+              tick={{ fill: theme.palette.text.secondary }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: theme.palette.background.paper,
+                borderRadius: theme.shape.borderRadius,
+                boxShadow: theme.shadows[3],
+                border: `1px solid ${theme.palette.divider}`,
+              }}
+            />
+            <Legend 
+              wrapperStyle={{
+                paddingTop: '8px',
+              }}
+            />
+            <Line
+              type="monotone"
+              dataKey="activeUsers"
+              name="Active Users"
+              stroke={theme.palette.primary.main}
+              strokeWidth={2}
+              dot={{ r: 4, fill: theme.palette.primary.main }}
+              activeDot={{ r: 6, fill: theme.palette.primary.main }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </Box>
+    </Box>
+  );
+};
+
+export default ActiveUsersChart;
