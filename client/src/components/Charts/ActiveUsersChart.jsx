@@ -76,8 +76,8 @@ const ActiveUsersChart = () => {
             data={data}
             margin={{
               top: 5,
-              right: 30,
-              left: 0,
+              right: 75, // Match RetentionRateChart margin
+              left: 10,
               bottom: 5,
             }}
           >
