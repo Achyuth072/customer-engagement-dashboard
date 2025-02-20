@@ -41,11 +41,11 @@ function App() {
           maxWidth="xl"
           sx={{
             flex: 1,
-            py: 4,
+            py: 6,
             px: { xs: 2, sm: 3 },
           }}
         >
-          <Stack spacing={2} sx={{ py: 3 }}>
+          <Stack spacing={4}>
             {/* Header */}
             <Typography
               variant="h4"
@@ -54,7 +54,6 @@ function App() {
               sx={{
                 fontWeight: 'bold',
                 color: 'text.primary',
-                mb: 1
               }}
             >
               Customer Engagement Dashboard
@@ -65,7 +64,6 @@ function App() {
               display: 'flex',
               justifyContent: 'center',
               width: '100%',
-              mb: 1
             }}>
               <Box sx={{ width: { xs: '100%', sm: '80%', md: '60%' } }}>
                 <FiltersAndSearch onFiltersChange={handleFiltersChange} />
@@ -73,19 +71,18 @@ function App() {
             </Box>
 
             {/* Overview Metrics */}
-            <Box sx={{ mb: 1 }}>
-              <DashboardOverview />
-            </Box>
+            <DashboardOverview />
 
             {/* Charts Section */}
             <Box>
-              <Typography variant="h5" component="h2" sx={{ mb: 3 }}>
+              <Typography variant="h5" component="h2">
                 Analytics & Trends
               </Typography>
               
               <Box sx={{
+                mt: 4,
                 display: 'grid',
-                gap: 3,
+                gap: 4,
                 gridTemplateColumns: {
                   xs: '1fr',
                   md: 'repeat(2, 1fr)'
