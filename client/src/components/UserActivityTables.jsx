@@ -71,40 +71,36 @@ const UserActivityTable = () => {
   }
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        mb: 3
-      }}
-    >
-      <Typography
-        variant="h5"
-        component="h2"
-        sx={{ mb: 2 }}
-        align="center"
-      >
-        User Activity
-      </Typography>
+    <Box sx={{ width: '900px' }}>
       <TableContainer
         component={Paper}
         sx={{
-          boxShadow: 1,
+          boxShadow: 2,
           borderRadius: 1,
-          overflow: 'hidden',
-          maxWidth: '700px', // Reduced maximum width
-          width: '100%'
+          width: '900px'
         }}
       >
-        <Table 
-          sx={{ 
+        <Box sx={{ px: 3, pt: 3, pb: 2.5 }}>
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{
+              fontWeight: 'medium'
+            }}
+          >
+            User Activity
+          </Typography>
+        </Box>
+        <Table
+          sx={{
+            width: '900px',
+            tableLayout: 'fixed',
             '& .MuiTableCell-root': {
-              px: 3,
-              py: 2,
+              px: 2,
+              py: 1.5
             }
-          }} 
+          }}
+          size="medium"
           aria-label="user activity table"
         >
           <TableHead>

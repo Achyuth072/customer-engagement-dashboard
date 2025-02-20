@@ -93,6 +93,13 @@ const ActiveUsersChart = () => {
             <YAxis
               stroke={theme.palette.text.secondary}
               tick={{ fill: theme.palette.text.secondary }}
+              label={{
+                value: 'Active Users',
+                angle: -90,
+                position: 'insideLeft',
+                fill: theme.palette.text.secondary,
+                style: { textAnchor: 'middle' }
+              }}
             />
             <Tooltip
               contentStyle={{

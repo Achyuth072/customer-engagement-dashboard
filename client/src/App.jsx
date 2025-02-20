@@ -122,13 +122,8 @@ function App() {
             </Box>
 
             {/* User Activity Table */}
-            <Box>
-              <Typography variant="h5" component="h2" sx={{ mb: 3 }}>
-                User Activity
-              </Typography>
-              <Paper elevation={2}>
-                <UserActivityTable filters={filters} />
-              </Paper>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <UserActivityTable filters={filters} />
             </Box>
           </Stack>
         </Container>
