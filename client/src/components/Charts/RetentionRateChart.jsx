@@ -84,8 +84,8 @@ const RetentionRateChart = () => {
             data={data}
             margin={{
               top: 5,
-              right: 30,
-              left: 0,
+              right: 75, // Further increased right margin
+              left: 10,
               bottom: 5,
             }}
           >
@@ -127,13 +127,19 @@ const RetentionRateChart = () => {
             />
             <ReferenceLine 
               y={averageRetention} 
-              label={{ 
-                value: `Avg: ${averageRetention.toFixed(1)}%`,
+              label={{
+                value: `Avg: ${Math.round(averageRetention)}%`, // Rounded to whole number
                 fill: theme.palette.text.secondary,
-                position: 'right'
+                position: 'right',
+                offset: 15,
+                style: {
+                  fontSize: '0.75rem',
+                  fontWeight: 'normal'
+                }
               }}
               stroke={theme.palette.warning.main}
               strokeDasharray="3 3"
+              strokeWidth={1}
             />
             <Line
               type="monotone"

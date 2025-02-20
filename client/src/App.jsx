@@ -28,45 +28,52 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box 
-        className="App" 
-        sx={{ 
-          bgcolor: theme.palette.background.default, 
+      <Box
+        className="App"
+        sx={{
+          bgcolor: theme.palette.background.default,
           minHeight: '100vh',
-          width: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
+          flexDirection: 'column'
         }}
       >
-        <Container 
-          maxWidth={false}
+        <Container
+          maxWidth="xl"
           sx={{
-            width: '100%',
-            height: '100%',
-            px: { xs: 2, sm: 3 }, // Responsive padding
+            flex: 1,
+            py: 4,
+            px: { xs: 2, sm: 3 },
           }}
         >
-          <Stack spacing={4} sx={{ py: 4 }}>
+          <Stack spacing={2} sx={{ py: 3 }}>
             {/* Header */}
-            <Typography 
-              variant="h3" 
-              component="h1" 
+            <Typography
+              variant="h4"
+              component="h1"
               align="center"
-              sx={{ 
+              sx={{
                 fontWeight: 'bold',
                 color: 'text.primary',
-                mb: 2
+                mb: 1
               }}
             >
               Customer Engagement Dashboard
             </Typography>
             
             {/* Filters */}
-            <FiltersAndSearch onFiltersChange={handleFiltersChange} />
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              mb: 1
+            }}>
+              <Box sx={{ width: { xs: '100%', sm: '80%', md: '60%' } }}>
+                <FiltersAndSearch onFiltersChange={handleFiltersChange} />
+              </Box>
+            </Box>
 
             {/* Overview Metrics */}
-            <Box sx={{ mb: 2 }}>
+            <Box sx={{ mb: 1 }}>
               <DashboardOverview />
             </Box>
 
@@ -76,21 +83,26 @@ function App() {
                 Analytics & Trends
               </Typography>
               
-              <Box sx={{ 
-                display: 'grid', 
+              <Box sx={{
+                display: 'grid',
                 gap: 3,
                 gridTemplateColumns: {
                   xs: '1fr',
                   md: 'repeat(2, 1fr)'
                 },
+                width: '100%',
+                maxWidth: '100%',
                 '& > .MuiPaper-root': {
-                  height: '400px', // Fixed height for chart containers
+                  height: '400px',
                   display: 'flex',
                   flexDirection: 'column',
                   overflow: 'hidden',
+                  p: 3,
                   '& > *': {
-                    flex: 1, // Make all direct children fill the container
-                    minHeight: 0 // Allow children to shrink below their content size
+                    flex: 1,
+                    minHeight: 0,
+                    width: '100%',
+                    maxWidth: '100%'
                   }
                 }
               }}>

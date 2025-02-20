@@ -1,31 +1,36 @@
 /* Global styles */
 .App {
   min-height: 100vh;
-  width: 100%;
   background-color: var(--background-default);
+  overflow-x: hidden;
 }
 
 /* Chart container styles */
 .chart-container {
-  height: 100% !important;
-  width: 100% !important;
-  position: relative !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
   flex: 1;
-  min-height: 0; /* Allow container to shrink */
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Ensure recharts components maintain size */
 .recharts-wrapper {
-  position: relative !important;
+  position: relative;
   width: 100% !important;
   height: 100% !important;
-  min-height: 0 !important; /* Allow chart to shrink */
+  min-height: 0;
+  max-width: 100%;
 }
 
 .recharts-responsive-container {
   width: 100% !important;
   height: 100% !important;
-  min-height: 0 !important; /* Allow container to shrink */
+  min-height: 0;
+  max-width: 100%;
 }
 
 /* Smoother scrolling for AI Insights panel */
