@@ -47,37 +47,60 @@ const DashboardOverview = () => {
   };
 
   return (
-    <Box 
-      sx={{ 
-        width: '100%', 
-        px: { xs: 2, sm: 3, md: 4 },
+    <Box
+      sx={{
+        width: '100%',
+        p: { xs: 2, sm: 3, md: 4 },
         minHeight: '80vh',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden' // Prevent any potential overflow issues
       }}
     >
       <Grid
         container
-        spacing={4}
+        spacing={{ xs: 2, sm: 3, md: 4 }}
         sx={{
-          maxWidth: 1400,
+          maxWidth: { xs: '100%', md: 1400 },
           margin: '0 auto',
           display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'nowrap'
+          flexDirection: { xs: 'column', md: 'row' },
+          flexWrap: 'nowrap',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          p: { xs: 1, sm: 2 },
+          pb: { xs: 2, sm: 3 }, // Extra bottom padding for scrollbar
+          mx: { xs: -1, sm: -2 }, // Negative margin to offset container padding
+          width: 'calc(100% + 16px)', // Compensate for negative margin
+          '&::-webkit-scrollbar': {
+            height: 8,
+            bgcolor: 'background.paper'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: 2,
+            bgcolor: 'grey.300'
+          }
         }}
       >
         {/* Active Users Card */}
-        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
+        <Grid
+          xs={12}
+          md={4}
+          sx={{
+            minWidth: { xs: '100%', md: 380 },
+            flex: { xs: '0 0 auto', md: 1 }
+          }}
+        >
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography
+                variant="h6"
                 color="primary"
                 sx={{
                   mb: 4,
                   fontWeight: 'medium',
-                  fontSize: { xs: '1.25rem', sm: '1.5rem' },
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
                 }}
               >
                 Active Users
@@ -154,7 +177,14 @@ const DashboardOverview = () => {
         </Grid>
 
         {/* Engagement Score Card */}
-        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
+        <Grid
+          xs={12}
+          md={4}
+          sx={{
+            minWidth: { xs: '100%', md: 380 },
+            flex: { xs: '0 0 auto', md: 1 }
+          }}
+        >
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography 
@@ -206,7 +236,14 @@ const DashboardOverview = () => {
         </Grid>
 
         {/* Retention Rate Card */}
-        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
+        <Grid
+          xs={12}
+          md={4}
+          sx={{
+            minWidth: { xs: '100%', md: 380 },
+            flex: { xs: '0 0 auto', md: 1 }
+          }}
+        >
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography 
