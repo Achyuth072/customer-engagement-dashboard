@@ -1,31 +1,54 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 const API_URL = 'http://localhost:5000/api';
 
 // Function to get all users with optional filters
 export const getUsers = async (filters = {}) => {
   try {
-    const params = new URLSearchParams();
-    
+    console.log('API - Received filters:', filters);
+
+    const buildParams = new URLSearchParams();
+
+    // Add search parameter
     if (filters.searchQuery) {
-      params.append('search', filters.searchQuery);
-    }
-    if (filters.retentionCategory) {
-      params.append('retentionCategory', filters.retentionCategory);
-    }
-    if (filters.engagementScoreRange) {
-      params.append('minEngagementScore', filters.engagementScoreRange[0]);
-      params.append('maxEngagementScore', filters.engagementScoreRange[1]);
-    }
-    if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
-      params.append('startDate', filters.dateRange[0].toISOString());
-      params.append('endDate', filters.dateRange[1].toISOString());
+      buildParams.append('search', filters.searchQuery);
     }
 
-    const response = await axios.get(`${API_URL}/users${params.toString() ? `?${params.toString()}` : ''}`);
+    // Add retention category
+    if (filters.retentionCategory) {
+      buildParams.append('retentionCategory', filters.retentionCategory);
+    }
+
+    // Add engagement score range
+    if (filters.engagementScoreRange) {
+      buildParams.append('minEngagementScore', filters.engagementScoreRange[0]);
+      buildParams.append('maxEngagementScore', filters.engagementScoreRange[1]);
+    }
+
+    // Add last login date
+    if (filters.lastLoginDate) {
+      console.log('API - Processing lastLoginDate:', filters.lastLoginDate);
+      buildParams.append('lastLoginDate', filters.lastLoginDate);
+    }
+
+    // Build the URL with parameters
+    const queryString = buildParams.toString();
+    const fullUrl = `${API_URL}/users${queryString ? `?${queryString}` : ''}`;
+    
+    console.log('API - Sending request to:', fullUrl);
+    console.log('API - URL parameters:', Object.fromEntries(buildParams.entries()));
+
+    // Make the request
+    const response = await axios.get(fullUrl);
+    console.log('API - Response received:', {
+      userCount: response.data.length,
+      firstUser: response.data[0]
+    });
+    
     return response.data;
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error('API - Error fetching users:', error);
     throw error;
   }
 };

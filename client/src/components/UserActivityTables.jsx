@@ -22,8 +22,33 @@ const UserActivityTable = ({ filters }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        
+        console.log('UserActivityTable - Current filters:', {
+          ...filters,
+          lastLoginDate: filters.lastLoginDate || 'no date filter'
+        });
+        
+        // Call API with filters
         const usersData = await getUsers(filters);
-        setUsers(usersData);
+        
+        // Filter users based on the date if provided
+        const filteredUsers = filters.lastLoginDate
+          ? usersData.filter(user =>
+              user.lastLoginDate.substring(0, 10) === filters.lastLoginDate
+            )
+          : usersData;
+
+        // Log matched users with detailed info
+        console.log('UserActivityTable - Filtered users:',
+          filteredUsers.map(user => ({
+            id: user._id,
+            name: user.name,
+            lastLoginDate: user.lastLoginDate,
+            dateMatched: user.lastLoginDate.substring(0, 10) === filters.lastLoginDate
+          }))
+        );
+        
+        setUsers(filteredUsers);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -32,7 +57,7 @@ const UserActivityTable = ({ filters }) => {
     };
 
     fetchData();
-  }, [filters]);
+  }, [JSON.stringify(filters)]); // Ensure effect triggers on filter changes
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString('en-US', {

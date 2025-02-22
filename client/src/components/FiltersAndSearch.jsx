@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 
 const FiltersAndSearch = ({ onFiltersChange }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [dateRange, setDateRange] = useState([null, null]);
+  const [lastLoginDate, setLastLoginDate] = useState(null);
   const [retentionCategory, setRetentionCategory] = useState('');
   const [engagementScoreRange, setEngagementScoreRange] = useState([0, 100]);
 
@@ -28,11 +28,29 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
     triggerFilterChange({ searchQuery: value });
   };
 
-  const handleDateRangeChange = (index) => (date) => {
-    const newDateRange = [...dateRange];
-    newDateRange[index] = date;
-    setDateRange(newDateRange);
-    triggerFilterChange({ dateRange: newDateRange });
+  const handleLastLoginDateChange = (date) => {
+    try {
+      console.log('FiltersAndSearch - Selected date (raw):', date);
+      if (!date) {
+        setLastLoginDate(null);
+        triggerFilterChange({ lastLoginDate: null });
+        return;
+      }
+
+      // Keep original dayjs object for DatePicker
+      setLastLoginDate(date);
+
+      // Format date as YYYY-MM-DD for consistency
+      const formattedDate = date.format('YYYY-MM-DD');
+      console.log('FiltersAndSearch - Using date:', formattedDate);
+
+      // Pass the formatted date string
+      triggerFilterChange({ lastLoginDate: formattedDate });
+    } catch (error) {
+      console.error('Error handling date change:', error);
+      setLastLoginDate(null);
+      triggerFilterChange({ lastLoginDate: null });
+    }
   };
 
   const handleRetentionCategoryChange = (event) => {
@@ -48,9 +66,14 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
 
   const triggerFilterChange = (changedFilter) => {
     if (onFiltersChange) {
+      // If we're changing the date, use the formatted date string
+      const currentLoginDate = changedFilter.lastLoginDate !== undefined
+        ? changedFilter.lastLoginDate
+        : (lastLoginDate ? lastLoginDate.format('YYYY-MM-DD') : null);
+
       onFiltersChange({
         searchQuery,
-        dateRange,
+        lastLoginDate: currentLoginDate,
         retentionCategory,
         engagementScoreRange,
         ...changedFilter
@@ -72,26 +95,12 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
             />
           </Box>
 
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={{ xs: 1.5, sm: 2 }}
-            alignItems={{ xs: 'stretch', sm: 'center' }}
-            sx={{ width: '100%' }}
-          >
-            <DatePicker
-              label="Start Date"
-              value={dateRange[0]}
-              onChange={handleDateRangeChange(0)}
-              slotProps={{ textField: { size: 'small' } }}
-            />
-            <DatePicker
-              label="End Date"
-              value={dateRange[1]}
-              onChange={handleDateRangeChange(1)}
-              slotProps={{ textField: { size: 'small' } }}
-              minDate={dateRange[0] ? dayjs(dateRange[0]) : undefined}
-            />
-          </Stack>
+          <DatePicker
+            label="Last Login Date"
+            value={lastLoginDate}
+            onChange={handleLastLoginDateChange}
+            slotProps={{ textField: { size: 'small', fullWidth: true } }}
+          />
 
           <FormControl size="small">
             <InputLabel>Retention Category</InputLabel>

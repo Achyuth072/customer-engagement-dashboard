@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
 import { 
   Container, 
   Typography, 
@@ -92,15 +98,44 @@ function TabPanel({ children, value, index, label, ...other }) {
 function App() {
   const [filters, setFilters] = useState({
     searchQuery: '',
-    dateRange: [null, null],
+    lastLoginDate: null,
     retentionCategory: '',
     engagementScoreRange: [0, 100]
   });
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleFiltersChange = (newFilters) => {
-    setFilters(newFilters);
-    console.log('Filters updated:', newFilters);
+    try {
+      console.log('App - Previous filters:', filters);
+      console.log('App - New filters:', newFilters);
+      
+      // Ensure we handle nullish values and convert date strings back to Date objects
+      const sanitizedFilters = {
+        searchQuery: newFilters.searchQuery || '',
+        retentionCategory: newFilters.retentionCategory || '',
+        engagementScoreRange: newFilters.engagementScoreRange || [0, 100]
+      };
+
+      // Handle lastLoginDate (YYYY-MM-DD string from FiltersAndSearch)
+      if (newFilters.lastLoginDate) {
+        sanitizedFilters.lastLoginDate = newFilters.lastLoginDate;
+        console.log('App - Using date:', sanitizedFilters.lastLoginDate);
+      } else {
+        sanitizedFilters.lastLoginDate = null;
+      }
+      
+      console.log('App - Sanitized filters:', sanitizedFilters);
+      setFilters(sanitizedFilters);
+    } catch (error) {
+      console.error('Error updating filters:', error);
+      // Reset filters to default state on error
+      setFilters({
+        searchQuery: '',
+        lastLoginDate: null,
+        retentionCategory: '',
+        engagementScoreRange: [0, 100]
+      });
+    }
   };
 
   const handleTabChange = (event, newValue) => {
