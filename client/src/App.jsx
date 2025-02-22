@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Paper, useTheme } from '@mui/material';
+import { Container, Typography, Paper, useTheme } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -29,174 +29,96 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box
-        className="App"
-        sx={{
-          bgcolor: theme.palette.background.default,
-          minHeight: '100vh',
-          width: '100%',
-          pb: 4 // Add padding at bottom
-        }}
-      >
-        {/* Header */}
-        <Box
-          sx={{
-            width: '100%',
-            bgcolor: 'background.paper',
-            borderBottom: 1,
-            borderColor: 'divider',
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 4,
-            pb: 3
-          }}
-        >
-          <Box
+      <div className="App">
+        <Container maxWidth="lg" sx={{ bgcolor: theme.palette.background.default, pb: 4 }}>
+          {/* Header */}
+          <Container
+            component="header"
+            disableGutters
             sx={{
-              maxWidth: '1200px',
-              width: '100%',
-              px: { xs: 2, sm: 3 }
+              bgcolor: 'background.paper',
+              borderBottom: 1,
+              borderColor: 'divider',
+              py: 4,
+              width: '100%'
             }}
           >
-            <Typography
-              variant="h4"
-              component="h1"
-              sx={{
-                fontWeight: 'bold',
-                color: 'text.primary',
-                textAlign: 'center'
-              }}
-            >
+            <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
               Customer Engagement Dashboard
             </Typography>
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3,
-            px: { xs: 2, sm: 3 },
-            maxWidth: '1200px',
-            mx: 'auto',
-            width: '100%',
-            mt: 3
-          }}
-        >
-          {/* Filters and Search */}
-          <Paper
-            elevation={2}
-            sx={{
-              p: { xs: 2, sm: 3 }
-            }}
-          >
-            <FiltersAndSearch onFiltersChange={handleFiltersChange} />
-          </Paper>
-
-          {/* User Activity Table */}
-          <Paper
-            elevation={2}
-            sx={{
-              p: { xs: 2, sm: 3 }
-            }}
-          >
-            <UserActivityTable filters={filters} />
-          </Paper>
+          </Container>
 
           {/* Dashboard Overview */}
-          <Paper
-            elevation={2}
-            sx={{
-              p: { xs: 2, sm: 3 }
-            }}
-          >
+          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
             <DashboardOverview />
-          </Paper>
+          </Container>
+
+          {/* Filters and Search */}
+          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
+            <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 } }}>
+              <FiltersAndSearch onFiltersChange={handleFiltersChange} />
+            </Paper>
+          </Container>
 
           {/* Charts Section */}
-          <Box>
+          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
             <Typography
               variant="h5"
               component="h2"
-              sx={{
-                mb: 3,
-                textAlign: 'center',
-                fontWeight: 'medium'
-              }}
+              sx={{ mb: 3, textAlign: 'center', fontWeight: 'medium' }}
             >
-              Analytics & Trends
+              Analytics &amp; Trends
             </Typography>
-            <Grid
-              container
-              spacing={3}
-              alignItems="stretch"
-              justifyContent="center"
-            >
-              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+            <Grid container spacing={3} justifyContent="center">
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    height: '100%',
-                    width: '100%',
-                    minHeight: 400,
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
+                  sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
                 >
                   <ActiveUsersChart />
                 </Paper>
               </Grid>
-              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    height: '100%',
-                    width: '100%',
-                    minHeight: 400,
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
+                  sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
                 >
                   <EngagementScoreChart />
                 </Paper>
               </Grid>
-              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    height: '100%',
-                    width: '100%',
-                    minHeight: 400,
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
+                  sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
                 >
                   <RetentionRateChart />
                 </Paper>
               </Grid>
-              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
-                <Paper
-                  elevation={2}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    height: '100%',
-                    width: '100%',
-                    minHeight: 400,
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  <AIInsightsPanel />
-                </Paper>
-              </Grid>
             </Grid>
-          </Box>
-        </Box>
-      </Box>
+          </Container>
+
+          {/* AI Insights */}
+          <Container disableGutters sx={{ mt: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <Paper 
+              elevation={2} 
+              sx={{ 
+                p: { xs: 2, sm: 3 }, 
+                maxWidth: 350, 
+                width: '100%'
+              }}
+            >
+              <AIInsightsPanel />
+            </Paper>
+          </Container>
+
+          {/* User Activity Table */}
+          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
+            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+              <UserActivityTable filters={filters} />
+            </Paper>
+          </Container>
+        </Container>
+      </div>
     </LocalizationProvider>
   );
 }

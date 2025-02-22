@@ -52,48 +52,24 @@ const EngagementScoreChart = () => {
 
   if (loading) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
-        height="100%"
-      >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 400 }}>
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box 
-      sx={{ 
-        width: '100%', 
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <Typography 
-        className="chart-title"
-        variant="h6"
-      >
+    <>
+      <Typography variant="h6" gutterBottom>
         Engagement Score Distribution
       </Typography>
-      
-      <Box className="chart-container">
+      <Box sx={{ width: '100%', height: 400 }}>
         <ResponsiveContainer>
           <BarChart
             data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 0,
-              bottom: 5,
-            }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
-            <CartesianGrid 
-              strokeDasharray="3 3" 
-              stroke={theme.palette.divider}
-            />
+            <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis
               dataKey="range"
               stroke={theme.palette.text.secondary}
@@ -106,24 +82,18 @@ const EngagementScoreChart = () => {
                 value: 'Number of Users', 
                 angle: -90, 
                 position: 'insideLeft',
-                fill: theme.palette.text.secondary,
-                style: { textAnchor: 'middle' }
+                fill: theme.palette.text.secondary
               }}
             />
             <Tooltip
               contentStyle={{
                 backgroundColor: theme.palette.background.paper,
                 borderRadius: theme.shape.borderRadius,
-                boxShadow: theme.shadows[3],
                 border: `1px solid ${theme.palette.divider}`,
               }}
               cursor={{ fill: theme.palette.action.hover }}
             />
-            <Legend 
-              wrapperStyle={{
-                paddingTop: '8px',
-              }}
-            />
+            <Legend wrapperStyle={{ paddingTop: '8px' }} />
             <Bar
               dataKey="count"
               name="Users"
@@ -133,7 +103,7 @@ const EngagementScoreChart = () => {
           </BarChart>
         </ResponsiveContainer>
       </Box>
-    </Box>
+    </>
   );
 };
 

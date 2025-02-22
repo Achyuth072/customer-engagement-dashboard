@@ -21,7 +21,6 @@ const ActiveUsersChart = () => {
     const fetchData = async () => {
       try {
         const chartData = await getMetrics('active-users-over-time');
-        // Transform the data to match Recharts format
         const formattedData = chartData.map(item => ({
           name: new Date(item._id).toLocaleDateString(),
           activeUsers: item.count
@@ -39,48 +38,24 @@ const ActiveUsersChart = () => {
 
   if (loading) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
-        height="100%"
-      >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 400 }}>
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box 
-      sx={{ 
-        width: '100%', 
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <Typography 
-        className="chart-title"
-        variant="h6" 
-      >
+    <>
+      <Typography variant="h6" gutterBottom>
         Active Users Over Time
       </Typography>
-      
-      <Box className="chart-container">
+      <Box sx={{ width: '100%', height: 400 }}>
         <ResponsiveContainer>
           <LineChart
             data={data}
-            margin={{
-              top: 5,
-              right: 75, // Match RetentionRateChart margin
-              left: 10,
-              bottom: 5,
-            }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
-            <CartesianGrid 
-              strokeDasharray="3 3" 
-              stroke={theme.palette.divider}
-            />
+            <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis 
               dataKey="name"
               stroke={theme.palette.text.secondary}
@@ -93,23 +68,17 @@ const ActiveUsersChart = () => {
                 value: 'Active Users',
                 angle: -90,
                 position: 'insideLeft',
-                fill: theme.palette.text.secondary,
-                style: { textAnchor: 'middle' }
+                fill: theme.palette.text.secondary
               }}
             />
             <Tooltip
               contentStyle={{
                 backgroundColor: theme.palette.background.paper,
                 borderRadius: theme.shape.borderRadius,
-                boxShadow: theme.shadows[3],
                 border: `1px solid ${theme.palette.divider}`,
               }}
             />
-            <Legend 
-              wrapperStyle={{
-                paddingTop: '8px',
-              }}
-            />
+            <Legend wrapperStyle={{ paddingTop: '8px' }} />
             <Line
               type="monotone"
               dataKey="activeUsers"
@@ -122,7 +91,7 @@ const ActiveUsersChart = () => {
           </LineChart>
         </ResponsiveContainer>
       </Box>
-    </Box>
+    </>
   );
 };
 

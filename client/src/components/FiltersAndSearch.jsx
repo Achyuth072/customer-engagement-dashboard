@@ -60,7 +60,6 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Paper sx={{ p: 3, mb: 3 }}>
         <Stack spacing={3}>
           <Box>
             <TextField
@@ -129,7 +128,6 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
             />
           </Box>
         </Stack>
-      </Paper>
     </LocalizationProvider>
   );
 };

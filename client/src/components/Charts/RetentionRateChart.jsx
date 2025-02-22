@@ -39,48 +39,24 @@ const RetentionRateChart = () => {
 
   if (loading) {
     return (
-      <Box 
-        display="flex" 
-        justifyContent="center" 
-        alignItems="center" 
-        height="100%"
-      >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 400 }}>
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box 
-      sx={{ 
-        width: '100%', 
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <Typography 
-        className="chart-title"
-        variant="h6"
-      >
+    <>
+      <Typography variant="h6" gutterBottom>
         Retention Rate Trend
       </Typography>
-      
-      <Box className="chart-container">
+      <Box sx={{ width: '100%', height: 400 }}>
         <ResponsiveContainer>
           <LineChart
             data={data}
-            margin={{
-              top: 5,
-              right: 75, // Further increased right margin
-              left: 10,
-              bottom: 5,
-            }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
-            <CartesianGrid 
-              strokeDasharray="3 3" 
-              stroke={theme.palette.divider}
-            />
+            <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis
               dataKey="period"
               stroke={theme.palette.text.secondary}
@@ -95,8 +71,7 @@ const RetentionRateChart = () => {
                 value: 'Retention Rate (%)', 
                 angle: -90, 
                 position: 'insideLeft',
-                fill: theme.palette.text.secondary,
-                style: { textAnchor: 'middle' }
+                fill: theme.palette.text.secondary
               }}
             />
             <Tooltip
@@ -104,30 +79,19 @@ const RetentionRateChart = () => {
               contentStyle={{
                 backgroundColor: theme.palette.background.paper,
                 borderRadius: theme.shape.borderRadius,
-                boxShadow: theme.shadows[3],
                 border: `1px solid ${theme.palette.divider}`,
               }}
             />
-            <Legend 
-              wrapperStyle={{
-                paddingTop: '8px',
-              }}
-            />
+            <Legend wrapperStyle={{ paddingTop: '8px' }} />
             <ReferenceLine 
               y={averageRetention} 
               label={{
-                value: `Avg: ${Math.round(averageRetention)}%`, // Rounded to whole number
+                value: `Avg: ${Math.round(averageRetention)}%`,
                 fill: theme.palette.text.secondary,
-                position: 'right',
-                offset: 15,
-                style: {
-                  fontSize: '0.75rem',
-                  fontWeight: 'normal'
-                }
+                position: 'right'
               }}
               stroke={theme.palette.warning.main}
               strokeDasharray="3 3"
-              strokeWidth={1}
             />
             <Line
               type="monotone"
@@ -135,21 +99,13 @@ const RetentionRateChart = () => {
               name="Retention Rate"
               stroke={theme.palette.success.main}
               strokeWidth={2}
-              dot={{ 
-                r: 4, 
-                fill: theme.palette.success.main,
-                stroke: theme.palette.success.dark 
-              }}
-              activeDot={{ 
-                r: 6, 
-                fill: theme.palette.success.light,
-                stroke: theme.palette.success.main 
-              }}
+              dot={{ r: 4, fill: theme.palette.success.main }}
+              activeDot={{ r: 6, fill: theme.palette.success.main }}
             />
           </LineChart>
         </ResponsiveContainer>
       </Box>
-    </Box>
+    </>
   );
 };
 
