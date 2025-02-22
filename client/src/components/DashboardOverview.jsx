@@ -56,16 +56,19 @@ const DashboardOverview = () => {
         alignItems: 'center'
       }}
     >
-      <Grid 
-        container 
+      <Grid
+        container
         spacing={4}
-        sx={{ 
+        sx={{
           maxWidth: 1400,
-          margin: '0 auto'
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap'
         }}
       >
         {/* Active Users Card */}
-        <Grid xs={4}>
+        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography
@@ -79,11 +82,11 @@ const DashboardOverview = () => {
               >
                 Active Users
               </Typography>
-              <Box sx={{ 
-                display: 'flex', 
-                justifyContent: 'space-around',
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 width: '100%',
-                gap: { xs: 2, sm: 3 }
+                px: 2
               }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Typography
@@ -151,7 +154,7 @@ const DashboardOverview = () => {
         </Grid>
 
         {/* Engagement Score Card */}
-        <Grid xs={4}>
+        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography 
@@ -203,7 +206,7 @@ const DashboardOverview = () => {
         </Grid>
 
         {/* Retention Rate Card */}
-        <Grid xs={4}>
+        <Grid xs={12} sm={4} sx={{ minWidth: 380 }}>
           <Card sx={cardStyle}>
             <CardContent sx={{ py: 4 }}>
               <Typography 
