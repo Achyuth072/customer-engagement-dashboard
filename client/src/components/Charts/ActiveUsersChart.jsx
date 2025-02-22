@@ -46,14 +46,34 @@ const ActiveUsersChart = () => {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          px: { xs: 1, sm: 0 }
+        }}
+      >
         Active Users Over Time
       </Typography>
-      <Box sx={{ width: '100%', height: 400 }}>
+      <Box sx={{
+        width: '100%',
+        height: { xs: 300, sm: 400 },
+        px: { xs: 1, sm: 0 }
+      }}>
         <ResponsiveContainer>
           <LineChart
             data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{
+              top: 5,
+              right: 20,
+              left: 0,
+              bottom: 5,
+              ...(window.innerWidth >= 600 && {
+                right: 30,
+                left: 20
+              })
+            }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis 
@@ -67,8 +87,11 @@ const ActiveUsersChart = () => {
               label={{
                 value: 'Active Users',
                 angle: -90,
-                position: 'insideLeft',
-                fill: theme.palette.text.secondary
+                position: window.innerWidth >= 600 ? 'insideLeft' : 'outsideLeft',
+                fill: theme.palette.text.secondary,
+                style: {
+                  fontSize: window.innerWidth >= 600 ? 12 : 10
+                }
               }}
             />
             <Tooltip
@@ -84,9 +107,17 @@ const ActiveUsersChart = () => {
               dataKey="activeUsers"
               name="Active Users"
               stroke={theme.palette.primary.main}
-              strokeWidth={2}
-              dot={{ r: 4, fill: theme.palette.primary.main }}
-              activeDot={{ r: 6, fill: theme.palette.primary.main }}
+              strokeWidth={window.innerWidth >= 600 ? 2 : 1.5}
+              dot={{
+                r: window.innerWidth >= 600 ? 4 : 3,
+                fill: theme.palette.primary.main,
+                strokeWidth: window.innerWidth >= 600 ? 1 : 0.5
+              }}
+              activeDot={{
+                r: window.innerWidth >= 600 ? 6 : 5,
+                fill: theme.palette.primary.main,
+                strokeWidth: window.innerWidth >= 600 ? 2 : 1
+              }}
             />
           </LineChart>
         </ResponsiveContainer>

@@ -60,14 +60,34 @@ const EngagementScoreChart = () => {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          px: { xs: 1, sm: 0 }
+        }}
+      >
         Engagement Score Distribution
       </Typography>
-      <Box sx={{ width: '100%', height: 400 }}>
+      <Box sx={{
+        width: '100%',
+        height: { xs: 300, sm: 400 },
+        px: { xs: 1, sm: 0 }
+      }}>
         <ResponsiveContainer>
           <BarChart
             data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{
+              top: 5,
+              right: 20,
+              left: 0,
+              bottom: 5,
+              ...(window.innerWidth >= 600 && {
+                right: 30,
+                left: 20
+              })
+            }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis
@@ -78,11 +98,14 @@ const EngagementScoreChart = () => {
             <YAxis
               stroke={theme.palette.text.secondary}
               tick={{ fill: theme.palette.text.secondary }}
-              label={{ 
-                value: 'Number of Users', 
-                angle: -90, 
-                position: 'insideLeft',
-                fill: theme.palette.text.secondary
+              label={{
+                value: 'Number of Users',
+                angle: -90,
+                position: window.innerWidth >= 600 ? 'insideLeft' : 'outsideLeft',
+                fill: theme.palette.text.secondary,
+                style: {
+                  fontSize: window.innerWidth >= 600 ? 12 : 10
+                }
               }}
             />
             <Tooltip

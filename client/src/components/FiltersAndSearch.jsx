@@ -60,7 +60,7 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Stack spacing={3}>
+        <Stack spacing={{ xs: 2, sm: 3 }} sx={{ width: '100%', px: { xs: 1, sm: 2 } }}>
           <Box>
             <TextField
               fullWidth
@@ -74,8 +74,9 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
 
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
-            spacing={2}
-            alignItems="center"
+            spacing={{ xs: 1.5, sm: 2 }}
+            alignItems={{ xs: 'stretch', sm: 'center' }}
+            sx={{ width: '100%' }}
           >
             <DatePicker
               label="Start Date"

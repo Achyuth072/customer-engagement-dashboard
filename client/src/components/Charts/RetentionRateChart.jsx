@@ -47,14 +47,30 @@ const RetentionRateChart = () => {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          px: { xs: 1, sm: 0 }
+        }}
+      >
         Retention Rate Trend
       </Typography>
-      <Box sx={{ width: '100%', height: 400 }}>
+      <Box sx={{
+        width: '100%',
+        height: { xs: 300, sm: 400 },
+        px: { xs: 1, sm: 0 }
+      }}>
         <ResponsiveContainer>
           <LineChart
             data={data}
-            margin={{ top: 5, right: 90, left: 20, bottom: 5 }}
+            margin={{
+              top: 5,
+              right: window.innerWidth >= 600 ? 90 : 60,
+              left: window.innerWidth >= 600 ? 20 : 0,
+              bottom: 5
+            }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis
@@ -67,11 +83,14 @@ const RetentionRateChart = () => {
               ticks={[0, 20, 40, 60, 80, 100]}
               stroke={theme.palette.text.secondary}
               tick={{ fill: theme.palette.text.secondary }}
-              label={{ 
-                value: 'Retention Rate (%)', 
-                angle: -90, 
-                position: 'insideLeft',
-                fill: theme.palette.text.secondary
+              label={{
+                value: 'Retention Rate (%)',
+                angle: -90,
+                position: window.innerWidth >= 600 ? 'insideLeft' : 'outsideLeft',
+                fill: theme.palette.text.secondary,
+                style: {
+                  fontSize: window.innerWidth >= 600 ? 12 : 10
+                }
               }}
             />
             <Tooltip
@@ -89,7 +108,10 @@ const RetentionRateChart = () => {
                 value: `Avg: ${Math.round(averageRetention)}%`,
                 fill: theme.palette.text.secondary,
                 position: 'right',
-                offset: 15
+                offset: window.innerWidth >= 600 ? 15 : 5,
+                style: {
+                  fontSize: window.innerWidth >= 600 ? 12 : 10
+                }
               }}
               stroke={theme.palette.warning.main}
               strokeDasharray="3 3"
@@ -99,9 +121,17 @@ const RetentionRateChart = () => {
               dataKey="retentionRate"
               name="Retention Rate"
               stroke={theme.palette.success.main}
-              strokeWidth={2}
-              dot={{ r: 4, fill: theme.palette.success.main }}
-              activeDot={{ r: 6, fill: theme.palette.success.main }}
+              strokeWidth={window.innerWidth >= 600 ? 2 : 1.5}
+              dot={{
+                r: window.innerWidth >= 600 ? 4 : 3,
+                fill: theme.palette.success.main,
+                strokeWidth: window.innerWidth >= 600 ? 1 : 0.5
+              }}
+              activeDot={{
+                r: window.innerWidth >= 600 ? 6 : 5,
+                fill: theme.palette.success.main,
+                strokeWidth: window.innerWidth >= 600 ? 2 : 1
+              }}
             />
           </LineChart>
         </ResponsiveContainer>

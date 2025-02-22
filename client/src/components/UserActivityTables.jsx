@@ -74,7 +74,7 @@ const UserActivityTable = ({ filters }) => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid xs={12} lg={10} xl={8}>
+      <Grid xs={12} sm={11} md={10} lg={10} xl={8}>
         <TableContainer
           component={Paper}
           sx={{
@@ -100,11 +100,15 @@ const UserActivityTable = ({ filters }) => {
               width: '100%',
               tableLayout: 'fixed',
               '& .MuiTableCell-root': {
-                px: 2,
-                py: 1.5,
-                whiteSpace: 'nowrap',
+                px: { xs: 1, sm: 2 },
+                py: { xs: 1, sm: 1.5 },
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                // Allow text wrapping on small screens
+                whiteSpace: { xs: 'normal', md: 'nowrap' },
+                // Smaller font size on mobile
+                '& .MuiTypography-root': {
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                }
               }
             }}
             size="medium"
@@ -115,7 +119,7 @@ const UserActivityTable = ({ filters }) => {
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight="bold">Name</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                   <Typography variant="subtitle2" fontWeight="bold">Email</Typography>
                 </TableCell>
                 <TableCell>
@@ -141,7 +145,7 @@ const UserActivityTable = ({ filters }) => {
                   <TableCell component="th" scope="row">
                     <Typography variant="body2">{user.name}</Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                     <Typography variant="body2">{user.email}</Typography>
                   </TableCell>
                   <TableCell>

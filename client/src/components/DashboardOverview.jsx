@@ -37,26 +37,34 @@ const DashboardOverview = () => {
 
   const cardStyle = {
     width: '100%',
-    maxWidth: '800px',
-    mb: 2,
-    borderRadius: 2,
+    maxWidth: { xs: '100%', sm: '600px', md: '800px' },
+    mb: { xs: 1.5, sm: 2 },
+    borderRadius: { xs: 1, sm: 2 },
     boxShadow: theme.shadows[2]
   };
 
   return (
-    <Box 
-      sx={{ 
+    <Box
+      sx={{
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 2
+        gap: { xs: 1.5, sm: 2, md: 3 },
+        px: { xs: 1, sm: 2, md: 3 }
       }}
     >
       {/* Active Users Card */}
       <Card sx={cardStyle}>
         <CardContent sx={{ py: 3 }}> {/* Added more vertical padding */}
-          <Typography variant="h6" color="primary" sx={{ mb: 3, fontWeight: 'medium' }}>
+          <Typography
+            color="primary"
+            sx={{
+              mb: 3,
+              fontWeight: 'medium',
+              fontSize: { xs: '1rem', sm: '1.25rem' }
+            }}
+          >
             Active Users
           </Typography>
           <Box sx={{ 
@@ -65,26 +73,62 @@ const DashboardOverview = () => {
             width: '100%'
           }}>
             <Box sx={{ textAlign: 'center' }}> {/* Added center alignment */}
-              <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
+                  fontWeight: 600,
+                  mb: 0.5
+                }}
+              >
                 {activeUsers.daily}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  lineHeight: { xs: 1.2, sm: 1.43 }
+                }}
+              >
                 Today
               </Typography>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
+                  fontWeight: 600,
+                  mb: 0.5
+                }}
+              >
                 {activeUsers.weekly}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  lineHeight: { xs: 1.2, sm: 1.43 }
+                }}
+              >
                 This Week
               </Typography>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
+                  fontWeight: 600,
+                  mb: 0.5
+                }}
+              >
                 {activeUsers.monthly}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  lineHeight: { xs: 1.2, sm: 1.43 }
+                }}
+              >
                 This Month
               </Typography>
             </Box>
@@ -99,10 +143,23 @@ const DashboardOverview = () => {
             Engagement Score
           </Typography>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h2" sx={{ fontWeight: 600, mb: 1 }}>
+            <Typography
+              sx={{
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.75rem' },
+                fontWeight: 600,
+                mb: 1
+              }}
+            >
               {engagementScore}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              color="text.secondary"
+              sx={{
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                lineHeight: { xs: 1.2, sm: 1.43 },
+                mb: 2
+              }}
+            >
               Out of 100
             </Typography>
             <Typography variant="h6" color={
@@ -123,10 +180,23 @@ const DashboardOverview = () => {
             Retention Rate
           </Typography>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h2" sx={{ fontWeight: 600, mb: 1 }}>
+            <Typography
+              sx={{
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.75rem' },
+                fontWeight: 600,
+                mb: 1
+              }}
+            >
               {(retentionRate * 100).toFixed(1)}%
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              color="text.secondary"
+              sx={{
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                lineHeight: { xs: 1.2, sm: 1.43 },
+                mb: 2
+              }}
+            >
               Current Period
             </Typography>
             <Typography variant="h6" color={
