@@ -12,16 +12,6 @@ import {
 import { Typography, Box, CircularProgress, useTheme } from '@mui/material';
 import { getMetrics } from '../../services/api.jsx';
 
-// Mock data structure for development
-const mockData = [
-  { name: 'Week 1', activeUsers: 400 },
-  { name: 'Week 2', activeUsers: 700 },
-  { name: 'Week 3', activeUsers: 550 },
-  { name: 'Week 4', activeUsers: 800 },
-  { name: 'Week 5', activeUsers: 950 },
-  { name: 'Week 6', activeUsers: 850 }
-];
-
 const ActiveUsersChart = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +20,13 @@ const ActiveUsersChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setData(mockData);
+        const chartData = await getMetrics('active-users-over-time');
+        // Transform the data to match Recharts format
+        const formattedData = chartData.map(item => ({
+          name: new Date(item._id).toLocaleDateString(),
+          activeUsers: item.count
+        }));
+        setData(formattedData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching active users data:', error);

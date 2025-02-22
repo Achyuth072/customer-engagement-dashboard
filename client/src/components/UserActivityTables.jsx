@@ -11,16 +11,18 @@ import {
   CircularProgress,
   Box,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { getUsers } from '../services/api.jsx';
 
-const UserActivityTable = () => {
+const UserActivityTable = ({ filters }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersData = await getUsers();
+        setLoading(true);
+        const usersData = await getUsers(filters);
         setUsers(usersData);
         setLoading(false);
       } catch (error) {
@@ -30,7 +32,7 @@ const UserActivityTable = () => {
     };
 
     fetchData();
-  }, []);
+  }, [filters]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString('en-US', {
@@ -71,105 +73,111 @@ const UserActivityTable = () => {
   }
 
   return (
-    <Box sx={{ width: '900px' }}>
-      <TableContainer
-        component={Paper}
-        sx={{
-          boxShadow: 2,
-          borderRadius: 1,
-          width: '900px'
-        }}
-      >
-        <Box sx={{ px: 3, pt: 3, pb: 2.5 }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{
-              fontWeight: 'medium'
-            }}
-          >
-            User Activity
-          </Typography>
-        </Box>
-        <Table
+    <Grid container justifyContent="center">
+      <Grid xs={12} lg={10} xl={8}>
+        <TableContainer
+          component={Paper}
           sx={{
-            width: '900px',
-            tableLayout: 'fixed',
-            '& .MuiTableCell-root': {
-              px: 2,
-              py: 1.5
-            }
+            boxShadow: 2,
+            borderRadius: 1,
+            overflow: 'auto',
+            width: '100%'
           }}
-          size="medium"
-          aria-label="user activity table"
         >
-          <TableHead>
-            <TableRow sx={{ bgcolor: 'grey.100' }}>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight="bold">Name</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight="bold">Email</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight="bold">Last Login</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography variant="subtitle2" fontWeight="bold">Engagement Score</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight="bold">Retention Category</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow
-                key={user._id}
-                sx={{ 
-                  '&:last-child td, &:last-child th': { border: 0 },
-                  '&:hover': { bgcolor: 'grey.50' }
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  <Typography variant="body2">{user.name}</Typography>
+          <Box sx={{ px: 3, pt: 3, pb: 2.5 }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{
+                fontWeight: 'medium'
+              }}
+            >
+              User Activity
+            </Typography>
+          </Box>
+          <Table
+            sx={{
+              width: '100%',
+              tableLayout: 'fixed',
+              '& .MuiTableCell-root': {
+                px: 2,
+                py: 1.5,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }
+            }}
+            size="medium"
+            aria-label="user activity table"
+          >
+            <TableHead>
+              <TableRow sx={{ bgcolor: 'grey.100' }}>
+                <TableCell>
+                  <Typography variant="subtitle2" fontWeight="bold">Name</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">{user.email}</Typography>
+                  <Typography variant="subtitle2" fontWeight="bold">Email</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">{formatDate(user.lastLoginDate)}</Typography>
+                  <Typography variant="subtitle2" fontWeight="bold">Last Login</Typography>
                 </TableCell>
                 <TableCell align="right">
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: user.engagementScore >= 70 ? 'success.main' : 
-                             user.engagementScore >= 40 ? 'warning.main' : 'error.main',
-                      fontWeight: 'medium'
-                    }}
-                  >
-                    {user.engagementScore}
-                  </Typography>
+                  <Typography variant="subtitle2" fontWeight="bold">Engagement Score</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: user.predictedRetentionCategory === 'High' ? 'success.main' :
-                             user.predictedRetentionCategory === 'Medium' ? 'warning.main' : 'error.main',
-                      fontWeight: 'medium'
-                    }}
-                  >
-                    {user.predictedRetentionCategory}
-                  </Typography>
+                  <Typography variant="subtitle2" fontWeight="bold">Retention Category</Typography>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow
+                  key={user._id}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                    '&:hover': { bgcolor: 'grey.50' }
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Typography variant="body2">{user.name}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2">{user.email}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2">{formatDate(user.lastLoginDate)}</Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: user.engagementScore >= 70 ? 'success.main' :
+                               user.engagementScore >= 40 ? 'warning.main' : 'error.main',
+                        fontWeight: 'medium'
+                      }}
+                    >
+                      {user.engagementScore}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: user.predictedRetentionCategory === 'High' ? 'success.main' :
+                               user.predictedRetentionCategory === 'Medium' ? 'warning.main' : 'error.main',
+                        fontWeight: 'medium'
+                      }}
+                    >
+                      {user.predictedRetentionCategory}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </Grid>
   );
 };
 

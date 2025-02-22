@@ -13,19 +13,6 @@ import {
 import { Typography, Box, CircularProgress, useTheme } from '@mui/material';
 import { getMetrics } from '../../services/api.jsx';
 
-// Mock data for development
-const mockData = [
-  { period: 'Jan', retentionRate: 0.95 },
-  { period: 'Feb', retentionRate: 0.92 },
-  { period: 'Mar', retentionRate: 0.88 },
-  { period: 'Apr', retentionRate: 0.85 },
-  { period: 'May', retentionRate: 0.82 },
-  { period: 'Jun', retentionRate: 0.80 }
-].map(item => ({
-  ...item,
-  retentionRate: item.retentionRate * 100 // Convert to percentage
-}));
-
 const RetentionRateChart = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +21,8 @@ const RetentionRateChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setData(mockData);
+        const chartData = await getMetrics('retention-rate-over-time');
+        setData(chartData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching retention rate data:', error);

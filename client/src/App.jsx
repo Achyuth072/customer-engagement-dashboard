@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Stack, Paper, useTheme } from '@mui/material';
+import { Container, Typography, Box, Paper, useTheme } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DashboardOverview from './components/DashboardOverview.jsx';
@@ -33,97 +34,168 @@ function App() {
         sx={{
           bgcolor: theme.palette.background.default,
           minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column'
+          width: '100%',
+          pb: 4 // Add padding at bottom
         }}
       >
-        <Container
-          maxWidth="xl"
+        {/* Header */}
+        <Box
           sx={{
-            flex: 1,
-            py: 6,
-            px: { xs: 2, sm: 3 },
+            width: '100%',
+            bgcolor: 'background.paper',
+            borderBottom: 1,
+            borderColor: 'divider',
+            display: 'flex',
+            justifyContent: 'center',
+            pt: 4,
+            pb: 3
           }}
         >
-          <Stack spacing={4}>
-            {/* Header */}
+          <Box
+            sx={{
+              maxWidth: '1200px',
+              width: '100%',
+              px: { xs: 2, sm: 3 }
+            }}
+          >
             <Typography
               variant="h4"
               component="h1"
-              align="center"
               sx={{
                 fontWeight: 'bold',
                 color: 'text.primary',
+                textAlign: 'center'
               }}
             >
               Customer Engagement Dashboard
             </Typography>
-            
-            {/* Filters */}
-            <Box sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-            }}>
-              <Box sx={{ width: { xs: '100%', sm: '80%', md: '60%' } }}>
-                <FiltersAndSearch onFiltersChange={handleFiltersChange} />
-              </Box>
-            </Box>
+          </Box>
+        </Box>
 
-            {/* Overview Metrics */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+            px: { xs: 2, sm: 3 },
+            maxWidth: '1200px',
+            mx: 'auto',
+            width: '100%',
+            mt: 3
+          }}
+        >
+          {/* Filters and Search */}
+          <Paper
+            elevation={2}
+            sx={{
+              p: { xs: 2, sm: 3 }
+            }}
+          >
+            <FiltersAndSearch onFiltersChange={handleFiltersChange} />
+          </Paper>
+
+          {/* User Activity Table */}
+          <Paper
+            elevation={2}
+            sx={{
+              p: { xs: 2, sm: 3 }
+            }}
+          >
+            <UserActivityTable filters={filters} />
+          </Paper>
+
+          {/* Dashboard Overview */}
+          <Paper
+            elevation={2}
+            sx={{
+              p: { xs: 2, sm: 3 }
+            }}
+          >
             <DashboardOverview />
+          </Paper>
 
-            {/* Charts Section */}
-            <Box>
-              <Typography variant="h5" component="h2">
-                Analytics & Trends
-              </Typography>
-              
-              <Box sx={{
-                mt: 4,
-                display: 'grid',
-                gap: 4,
-                gridTemplateColumns: {
-                  xs: '1fr',
-                  md: 'repeat(2, 1fr)'
-                },
-                width: '100%',
-                maxWidth: '100%',
-                '& > .MuiPaper-root': {
-                  height: '400px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflow: 'hidden',
-                  p: 3,
-                  '& > *': {
-                    flex: 1,
-                    minHeight: 0,
+          {/* Charts Section */}
+          <Box>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{
+                mb: 3,
+                textAlign: 'center',
+                fontWeight: 'medium'
+              }}
+            >
+              Analytics & Trends
+            </Typography>
+            <Grid
+              container
+              spacing={3}
+              alignItems="stretch"
+              justifyContent="center"
+            >
+              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    p: { xs: 2, sm: 3 },
+                    height: '100%',
                     width: '100%',
-                    maxWidth: '100%'
-                  }
-                }
-              }}>
-                <Paper elevation={2} sx={{ p: 2 }}>
+                    minHeight: 400,
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
                   <ActiveUsersChart />
                 </Paper>
-                <Paper elevation={2} sx={{ p: 2 }}>
+              </Grid>
+              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    p: { xs: 2, sm: 3 },
+                    height: '100%',
+                    width: '100%',
+                    minHeight: 400,
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
                   <EngagementScoreChart />
                 </Paper>
-                <Paper elevation={2} sx={{ p: 2 }}>
+              </Grid>
+              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    p: { xs: 2, sm: 3 },
+                    height: '100%',
+                    width: '100%',
+                    minHeight: 400,
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
                   <RetentionRateChart />
                 </Paper>
-                <Paper elevation={2} sx={{ p: 2 }}>
+              </Grid>
+              <Grid xs={12} md={6} sx={{ display: 'flex' }}>
+                <Paper
+                  elevation={2}
+                  sx={{
+                    p: { xs: 2, sm: 3 },
+                    height: '100%',
+                    width: '100%',
+                    minHeight: 400,
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
                   <AIInsightsPanel />
                 </Paper>
-              </Box>
-            </Box>
-
-            {/* User Activity Table */}
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <UserActivityTable filters={filters} />
-            </Box>
-          </Stack>
-        </Container>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
       </Box>
     </LocalizationProvider>
   );

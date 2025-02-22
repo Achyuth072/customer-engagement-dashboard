@@ -3,10 +3,50 @@ const router = express.Router();
 const User = require('../models/User');
 
 // @route   GET api/users
-// @desc    Get all users
+// @desc    Get all users with optional filters
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find();
+    const { 
+      search, 
+      retentionCategory, 
+      minEngagementScore, 
+      maxEngagementScore,
+      startDate,
+      endDate 
+    } = req.query;
+
+    let query = {};
+
+    // Search by name or email
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    // Filter by retention category
+    if (retentionCategory) {
+      query.predictedRetentionCategory = retentionCategory;
+    }
+
+    // Filter by engagement score range
+    if (minEngagementScore !== undefined && maxEngagementScore !== undefined) {
+      query.engagementScore = {
+        $gte: Number(minEngagementScore),
+        $lte: Number(maxEngagementScore)
+      };
+    }
+
+    // Filter by date range
+    if (startDate && endDate) {
+      query.lastLoginDate = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+
+    const users = await User.find(query);
     res.json(users);
   } catch (err) {
     console.error(err.message);

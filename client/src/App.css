@@ -3,6 +3,42 @@
   min-height: 100vh;
   background-color: var(--background-default);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center all content containers */
+.App > .MuiBox-root {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main content container */
+.App > .MuiBox-root > .MuiBox-root {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+}
+
+/* Center Paper components */
+.App .MuiPaper-root {
+  width: 100%;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Paper components */
+.App .MuiPaper-root:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Center charts & AI Insights within the Grid */
+.App .MuiGrid2-root {
+  justify-content: center;
+  height: 100%;
 }
 
 /* Chart container styles */
@@ -29,8 +65,14 @@
 .recharts-responsive-container {
   width: 100% !important;
   height: 100% !important;
-  min-height: 0;
+  min-height: 300px !important;
   max-width: 100%;
+}
+
+/* Improve chart text legibility */
+.recharts-text {
+  font-size: 0.875rem;
+  fill: currentColor;
 }
 
 /* Smoother scrolling for AI Insights panel */
@@ -64,7 +106,18 @@
 /* Chart title styles */
 .chart-title {
   margin-bottom: 8px !important;
-  height: 32px !important; /* Fixed height for titles */
+  height: 32px !important;
   display: flex !important;
   align-items: center !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .App > .MuiBox-root > .MuiBox-root {
+    padding: 0 16px;
+  }
+  
+  .recharts-responsive-container {
+    min-height: 250px !important;
+  }
 }
