@@ -40,15 +40,14 @@ const styles = {
   },
   chartPaper: {
     p: { xs: 2, sm: 3 },
-    minHeight: 400,
+    height: 400,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    overflow: 'hidden'
   },
-  insightsPaper: {
-    p: { xs: 2, sm: 3 },
-    maxWidth: 800,
-    minHeight: 300,
-    width: '100%'
+  scrollContent: {
+    overflowY: 'auto',
+    flex: 1
   }
 };
 
@@ -171,9 +170,9 @@ function App() {
                 container
                 spacing={3}
                 justifyContent="center"
-                aria-label="Dashboard Analytics Charts"
+                aria-label="Dashboard Analytics and Insights"
               >
-                <Grid item xs={12} sm={6} md={4} sx={styles.chartContainer}>
+                <Grid item xs={12} sm={6} md={3} sx={styles.chartContainer}>
                   <Paper
                     elevation={2}
                     sx={styles.chartPaper}
@@ -182,7 +181,7 @@ function App() {
                     <ActiveUsersChart />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4} sx={styles.chartContainer}>
+                <Grid item xs={12} sm={6} md={3} sx={styles.chartContainer}>
                   <Paper
                     elevation={2}
                     sx={styles.chartPaper}
@@ -191,7 +190,7 @@ function App() {
                     <EngagementScoreChart />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4} sx={styles.chartContainer}>
+                <Grid item xs={12} sm={6} md={3} sx={styles.chartContainer}>
                   <Paper
                     elevation={2}
                     sx={styles.chartPaper}
@@ -200,21 +199,18 @@ function App() {
                     <RetentionRateChart />
                   </Paper>
                 </Grid>
+                <Grid item xs={12} sm={6} md={3} sx={styles.chartContainer}>
+                  <Paper
+                    elevation={2}
+                    sx={styles.chartPaper}
+                    aria-label="AI Insights Panel"
+                  >
+                    <Box sx={styles.scrollContent}>
+                      <AIInsightsPanel />
+                    </Box>
+                  </Paper>
+                </Grid>
               </Grid>
-
-              {/* AI Insights */}
-              <Box
-                sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}
-                aria-label="AI Generated Insights Section"
-              >
-                <Paper
-                  elevation={2}
-                  sx={styles.insightsPaper}
-                  aria-label="AI Insights Panel"
-                >
-                  <AIInsightsPanel />
-                </Paper>
-              </Box>
             </Container>
           </TabPanel>
 
