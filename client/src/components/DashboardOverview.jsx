@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Card, CardContent, Box, useTheme } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { getMetrics } from '../services/api.jsx';
 
 const DashboardOverview = () => {
@@ -36,179 +37,223 @@ const DashboardOverview = () => {
   }
 
   const cardStyle = {
-    width: '100%',
-    maxWidth: { xs: '100%', sm: '600px', md: '800px' },
-    mb: { xs: 1.5, sm: 2 },
+    height: '100%',
     borderRadius: { xs: 1, sm: 2 },
-    boxShadow: theme.shadows[2]
+    boxShadow: theme.shadows[2],
+    minHeight: '250px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   };
 
   return (
-    <Box
-      sx={{
-        width: '100%',
+    <Box 
+      sx={{ 
+        width: '100%', 
+        px: { xs: 2, sm: 3, md: 4 },
+        minHeight: '80vh',
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: { xs: 1.5, sm: 2, md: 3 },
-        px: { xs: 1, sm: 2, md: 3 }
+        alignItems: 'center'
       }}
     >
-      {/* Active Users Card */}
-      <Card sx={cardStyle}>
-        <CardContent sx={{ py: 3 }}> {/* Added more vertical padding */}
-          <Typography
-            color="primary"
-            sx={{
-              mb: 3,
-              fontWeight: 'medium',
-              fontSize: { xs: '1rem', sm: '1.25rem' }
-            }}
-          >
-            Active Users
-          </Typography>
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'space-around', // Changed from space-between to space-around
-            width: '100%'
-          }}>
-            <Box sx={{ textAlign: 'center' }}> {/* Added center alignment */}
+      <Grid 
+        container 
+        spacing={4}
+        sx={{ 
+          maxWidth: 1400,
+          margin: '0 auto'
+        }}
+      >
+        {/* Active Users Card */}
+        <Grid xs={4}>
+          <Card sx={cardStyle}>
+            <CardContent sx={{ py: 4 }}>
               <Typography
+                color="primary"
                 sx={{
-                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
-                  fontWeight: 600,
-                  mb: 0.5
+                  mb: 4,
+                  fontWeight: 'medium',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  textAlign: 'center'
                 }}
               >
-                {activeUsers.daily}
+                Active Users
               </Typography>
-              <Typography
-                color="text.secondary"
-                sx={{
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                  lineHeight: { xs: 1.2, sm: 1.43 }
-                }}
-              >
-                Today
-              </Typography>
-            </Box>
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography
-                sx={{
-                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
-                  fontWeight: 600,
-                  mb: 0.5
-                }}
-              >
-                {activeUsers.weekly}
-              </Typography>
-              <Typography
-                color="text.secondary"
-                sx={{
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                  lineHeight: { xs: 1.2, sm: 1.43 }
-                }}
-              >
-                This Week
-              </Typography>
-            </Box>
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography
-                sx={{
-                  fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' },
-                  fontWeight: 600,
-                  mb: 0.5
-                }}
-              >
-                {activeUsers.monthly}
-              </Typography>
-              <Typography
-                color="text.secondary"
-                sx={{
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                  lineHeight: { xs: 1.2, sm: 1.43 }
-                }}
-              >
-                This Month
-              </Typography>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-around',
+                width: '100%',
+                gap: { xs: 2, sm: 3 }
+              }}>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                      fontWeight: 600,
+                      mb: 1
+                    }}
+                  >
+                    {activeUsers.daily}
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    sx={{
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    Today
+                  </Typography>
+                </Box>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                      fontWeight: 600,
+                      mb: 1
+                    }}
+                  >
+                    {activeUsers.weekly}
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    sx={{
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    This Week
+                  </Typography>
+                </Box>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                      fontWeight: 600,
+                      mb: 1
+                    }}
+                  >
+                    {activeUsers.monthly}
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    sx={{
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
+                      lineHeight: 1.5
+                    }}
+                  >
+                    This Month
+                  </Typography>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
 
-      {/* Engagement Score Card */}
-      <Card sx={cardStyle}>
-        <CardContent sx={{ py: 3 }}>
-          <Typography variant="h6" color="secondary" sx={{ mb: 3, fontWeight: 'medium' }}>
-            Engagement Score
-          </Typography>
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography
-              sx={{
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.75rem' },
-                fontWeight: 600,
-                mb: 1
-              }}
-            >
-              {engagementScore}
-            </Typography>
-            <Typography
-              color="text.secondary"
-              sx={{
-                fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                lineHeight: { xs: 1.2, sm: 1.43 },
-                mb: 2
-              }}
-            >
-              Out of 100
-            </Typography>
-            <Typography variant="h6" color={
-              engagementScore >= 70 ? 'primary.main' : 
-              engagementScore >= 40 ? 'warning.main' : 'error.main'
-            }>
-              {engagementScore >= 70 ? 'Excellent' :
-               engagementScore >= 40 ? 'Good' : 'Needs Improvement'}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+        {/* Engagement Score Card */}
+        <Grid xs={4}>
+          <Card sx={cardStyle}>
+            <CardContent sx={{ py: 4 }}>
+              <Typography 
+                variant="h6" 
+                color="secondary" 
+                sx={{ 
+                  mb: 4, 
+                  fontWeight: 'medium',
+                  textAlign: 'center',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                }}
+              >
+                Engagement Score
+              </Typography>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+                    fontWeight: 600,
+                    mb: 2
+                  }}
+                >
+                  {engagementScore}
+                </Typography>
+                <Typography
+                  color="text.secondary"
+                  sx={{
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
+                    lineHeight: 1.5,
+                    mb: 2
+                  }}
+                >
+                  Out of 100
+                </Typography>
+                <Typography 
+                  variant="h6" 
+                  color={
+                    engagementScore >= 70 ? 'primary.main' : 
+                    engagementScore >= 40 ? 'warning.main' : 'error.main'
+                  }
+                  sx={{ fontSize: { xs: '1.125rem', sm: '1.25rem' } }}
+                >
+                  {engagementScore >= 70 ? 'Excellent' :
+                   engagementScore >= 40 ? 'Good' : 'Needs Improvement'}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
 
-      {/* Retention Rate Card */}
-      <Card sx={cardStyle}>
-        <CardContent sx={{ py: 3 }}>
-          <Typography variant="h6" color="success.main" sx={{ mb: 3, fontWeight: 'medium' }}>
-            Retention Rate
-          </Typography>
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography
-              sx={{
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.75rem' },
-                fontWeight: 600,
-                mb: 1
-              }}
-            >
-              {(retentionRate * 100).toFixed(1)}%
-            </Typography>
-            <Typography
-              color="text.secondary"
-              sx={{
-                fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                lineHeight: { xs: 1.2, sm: 1.43 },
-                mb: 2
-              }}
-            >
-              Current Period
-            </Typography>
-            <Typography variant="h6" color={
-              retentionRate >= 0.8 ? 'success.main' :
-              retentionRate >= 0.6 ? 'warning.main' : 'error.main'
-            }>
-              {retentionRate >= 0.8 ? 'Strong Retention' :
-               retentionRate >= 0.6 ? 'Average Retention' : 'At Risk'}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+        {/* Retention Rate Card */}
+        <Grid xs={4}>
+          <Card sx={cardStyle}>
+            <CardContent sx={{ py: 4 }}>
+              <Typography 
+                variant="h6" 
+                color="success.main" 
+                sx={{ 
+                  mb: 4, 
+                  fontWeight: 'medium',
+                  textAlign: 'center',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                }}
+              >
+                Retention Rate
+              </Typography>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+                    fontWeight: 600,
+                    mb: 2
+                  }}
+                >
+                  {(retentionRate * 100).toFixed(1)}%
+                </Typography>
+                <Typography
+                  color="text.secondary"
+                  sx={{
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
+                    lineHeight: 1.5,
+                    mb: 2
+                  }}
+                >
+                  Current Period
+                </Typography>
+                <Typography 
+                  variant="h6" 
+                  color={
+                    retentionRate >= 0.8 ? 'success.main' :
+                    retentionRate >= 0.6 ? 'warning.main' : 'error.main'
+                  }
+                  sx={{ fontSize: { xs: '1.125rem', sm: '1.25rem' } }}
+                >
+                  {retentionRate >= 0.8 ? 'Strong Retention' :
+                   retentionRate >= 0.6 ? 'Average Retention' : 'At Risk'}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
