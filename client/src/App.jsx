@@ -60,6 +60,13 @@ function App() {
             </Paper>
           </Container>
 
+          {/* User Activity Table */}
+          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
+            <Paper>
+              <UserActivityTable filters={filters} />
+            </Paper>
+          </Container>
+
           {/* Charts Section */}
           <Container disableGutters sx={{ mt: 3, width: '100%' }}>
             <Typography
@@ -70,7 +77,7 @@ function App() {
               Analytics &amp; Trends
             </Typography>
             <Grid container spacing={3} justifyContent="center">
-              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 550, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
                   sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
@@ -78,7 +85,7 @@ function App() {
                   <ActiveUsersChart />
                 </Paper>
               </Grid>
-              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 550, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
                   sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
@@ -86,7 +93,7 @@ function App() {
                   <EngagementScoreChart />
                 </Paper>
               </Grid>
-              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 350, flexGrow: 1 }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: 550, flexGrow: 1 }}>
                 <Paper
                   elevation={2}
                   sx={{ p: { xs: 2, sm: 3 }, minHeight: 400, display: 'flex', flexDirection: 'column' }}
@@ -103,7 +110,8 @@ function App() {
               elevation={2} 
               sx={{ 
                 p: { xs: 2, sm: 3 }, 
-                maxWidth: 350, 
+                maxWidth: 800,
+                minHeight: 300,
                 width: '100%'
               }}
             >
@@ -111,12 +119,7 @@ function App() {
             </Paper>
           </Container>
 
-          {/* User Activity Table */}
-          <Container disableGutters sx={{ mt: 3, width: '100%' }}>
-            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
-              <UserActivityTable filters={filters} />
-            </Paper>
-          </Container>
+
         </Container>
       </div>
     </LocalizationProvider>

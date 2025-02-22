@@ -54,7 +54,7 @@ const RetentionRateChart = () => {
         <ResponsiveContainer>
           <LineChart
             data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 5, right: 90, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
             <XAxis
@@ -88,7 +88,8 @@ const RetentionRateChart = () => {
               label={{
                 value: `Avg: ${Math.round(averageRetention)}%`,
                 fill: theme.palette.text.secondary,
-                position: 'right'
+                position: 'right',
+                offset: 15
               }}
               stroke={theme.palette.warning.main}
               strokeDasharray="3 3"
