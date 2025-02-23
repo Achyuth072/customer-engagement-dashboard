@@ -98,7 +98,7 @@ const UserActivityTable = ({ filters }) => {
   }
 
   return (
-    <Grid container justifyContent="center">
+    <Grid container justifyContent="center" sx={{ width: '100%', margin: 0 }}>
       <Grid xs={12} sm={11} md={10} lg={10} xl={8}>
         <TableContainer
           component={Paper}
@@ -106,7 +106,9 @@ const UserActivityTable = ({ filters }) => {
             boxShadow: 2,
             borderRadius: 1,
             overflow: 'auto',
-            width: '100%'
+            width: '100%',
+            minWidth: { xs: '100%', sm: 600 },
+            margin: '0 auto'
           }}
         >
           <Box sx={{ px: 3, pt: 3, pb: 2.5 }}>

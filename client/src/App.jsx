@@ -182,10 +182,28 @@ function App() {
 
           <TabPanel value={selectedTab} index={1}>
             <Container disableGutters sx={{ width: '100%' }}>
-              <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 }, mb: 3 }}>
+              <Paper
+                elevation={2}
+                sx={{
+                  p: { xs: 2, sm: 3 },
+                  mb: 3,
+                  width: '100%',
+                  minWidth: { xs: '100%', sm: 600 },
+                  maxWidth: 800,
+                  mx: 'auto'
+                }}
+              >
                 <FiltersAndSearch onFiltersChange={handleFiltersChange} />
               </Paper>
-              <Paper>
+              <Paper
+                sx={{
+                  width: '100%',
+                  minWidth: { xs: '100%', sm: 600 },
+                  maxWidth: 1200,
+                  mx: 'auto',
+                  overflow: 'hidden'
+                }}
+              >
                 <UserActivityTable filters={filters} />
               </Paper>
             </Container>

@@ -83,7 +83,16 @@ const FiltersAndSearch = ({ onFiltersChange }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Stack spacing={{ xs: 2, sm: 3 }} sx={{ width: '100%', px: { xs: 1, sm: 2 } }}>
+        <Stack
+          spacing={{ xs: 2, sm: 3 }}
+          sx={{
+            width: '100%',
+            minWidth: { xs: '100%', sm: 600 },
+            maxWidth: 800,
+            px: { xs: 1, sm: 2 },
+            mx: 'auto'
+          }}
+        >
           <Box>
             <TextField
               fullWidth
